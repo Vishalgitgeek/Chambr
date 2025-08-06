@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<h2>All Rooms</h2>
+<ul class="list-group">
+    {% for room in rooms %}
+        <li class="list-group-item">
+            <a href="{% url 'room_detail' room.id %}">{{ room.name }}</a>
+            <small class="text-muted">Topic: {{ room.topic.name }}</small>
+        </li>
+    {% empty %}
+        <li>No rooms yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

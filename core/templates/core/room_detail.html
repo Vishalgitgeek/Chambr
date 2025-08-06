@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+
+
+<h2>{{ room.name }}</h2>
+<p><strong>Topic:</strong> {{ room.topic.name }}</p>
+<p>{{ room.description }}</p>
+
+<hr>
+<h5>Posts:</h5>
+{% for post in posts %}
+    <div class="card mb-2">
+        <div class="card-body">
+            <p><strong>{{ post.user.username }}</strong> - {{ post.created_at|date:"M d, Y H:i" }}</p>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" class="img-fluid" />
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <p>No posts yet.</p>
+{% endfor %}
+
+
+{% endblock %}

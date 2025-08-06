@@ -1,4 +1,34 @@
-requirements.txt
-/venv/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
 
+# Virtual environment
 venv/
+env/
+.venv/
+
+# Django
+*.sqlite3
+db.sqlite3
+*.log
+
+# Media & static uploads
+/media/
+/staticfiles/
+/static_root/
+/media_root/
+
+# VS Code settings (optional)
+.vscode/
+
+# Environment variables
+.env
+.env.*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+
