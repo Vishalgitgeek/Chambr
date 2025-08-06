@@ -7,6 +7,18 @@
 <p><strong>Topic:</strong> {{ room.topic.name }}</p>
 <p>{{ room.description }}</p>
 
+{% if user.is_authenticated %}
+<form method="POST" enctype="multipart/form-data" class="mb-4">
+    {% csrf_token %}
+    <textarea name="content" class="form-control mb-2" rows="2" placeholder="Say something..."></textarea>
+    <input type="file" name="image" class="form-control mb-2">
+    <button type="submit" class="btn btn-primary">Post</button>
+</form>
+{% else %}
+<p><a href="/login/">Log in</a> to join this room and post.</p>
+{% endif %}
+
+
 <hr>
 <h5>Posts:</h5>
 {% for post in posts %}

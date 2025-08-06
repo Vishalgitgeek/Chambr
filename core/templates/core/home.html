@@ -1,6 +1,15 @@
 {% extends 'core/base.html' %}
-
 {% block content %}
+
+
+{% if user.is_autheticated %}
+<a href="{% url 'create_room' %}", class = "btn btn-success mb-3">Create Room</a>
+{% else %}
+<a href="{% url 'Login' %}"></a>
+{% endif %}
+
+
+
 <h2>All Rooms</h2>
 <ul class="list-group">
     {% for room in rooms %}
@@ -12,4 +21,6 @@
         <li>No rooms yet.</li>
     {% endfor %}
 </ul>
+
+
 {% endblock %}
