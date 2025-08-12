@@ -15,7 +15,7 @@
     <button type="submit" class="btn btn-primary">Post</button>
 </form>
 {% else %}
-<p><a href="/login/">Log in</a> to join this room and post.</p>
+<p><a href="{% url 'login' %}">Log in</a> to join this room and post.</p>
 {% endif %}
 
 

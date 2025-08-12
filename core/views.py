@@ -7,14 +7,14 @@ from .forms import RoomForm
 
 @login_required
 def create_room(request):
-    if request.method == 'PSOT':
+    if request.method == 'POST':
         form  = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit = False)
             room.host = request.user
-            room.participants.add(request.user)
             room.save()
-            return redirect()
+            room.participants.add(request.user)
+            return redirect('room_detail', room_id=room.id)
     else:
         form = RoomForm()
 
@@ -34,9 +34,9 @@ def home(request):
     return render(request, 'core/home.html', context)
 
 
-
-def room_detail(request, room_id):
-    room = Room.objects.get(id = room_id)
+@login_required(login_url='login')
+def room_detail(request,  room_name):
+    room = Room.objects.get(name = room_name)
     post = Post.objects.all().order_by('-created_at')
 
     if request.user.is_authenticated and request.method == 'POST':
@@ -51,7 +51,7 @@ def room_detail(request, room_id):
                 image = image
             )
             room.participants.add(request.user)
-            return redirect('room_detail', room_id = room.id)
+            return redirect('room_detail', room_name = room.name)
 
     context = {
         'room':room,
