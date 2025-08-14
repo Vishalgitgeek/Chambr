@@ -12,7 +12,7 @@
     {% csrf_token %}
     <textarea name="content" class="form-control mb-2" rows="2" placeholder="Say something..."></textarea>
     <input type="file" name="image" class="form-control mb-2">
-    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="submit" class="btn btn-dark">Post</button>
 </form>
 {% else %}
 <p><a href="{% url 'login' %}">Log in</a> to join this room and post.</p>

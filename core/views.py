@@ -14,7 +14,7 @@ def create_room(request):
             room.host = request.user
             room.save()
             room.participants.add(request.user)
-            return redirect('room_detail', room_id=room.id)
+            return redirect('room_detail', room_name=room.name)
     else:
         form = RoomForm()
 
@@ -37,7 +37,7 @@ def home(request):
 @login_required(login_url='login')
 def room_detail(request,  room_name):
     room = Room.objects.get(name = room_name)
-    post = Post.objects.all().order_by('-created_at')
+    post = room.posts.all().order_by('-created_at')
 
     if request.user.is_authenticated and request.method == 'POST':
         content = request.POST.get('content')
