@@ -2,38 +2,75 @@
 
 {% block content %}
 
+<div class="row">
+    <!-- Left Column: Room details & Posts -->
+    <div class="col-md-8">
+        <h2>{{ room.name }}</h2>
+        <p><strong>Topic:</strong> {{ room.topic.name }}</p>
+        <p>{{ room.description }}</p>
 
-<h2>{{ room.name }}</h2>
-<p><strong>Topic:</strong> {{ room.topic.name }}</p>
-<p>{{ room.description }}</p>
+        {% if user.is_authenticated %}
+        <form method="POST" enctype="multipart/form-data" class="mb-4">
+            {% csrf_token %}
+            <textarea name="content" class="form-control mb-2" rows="2" placeholder="Say something..."></textarea>
+            <input type="file" name="image" class="form-control mb-2">
+            <button type="submit" class="btn btn-dark">Post</button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to join this room and post.</p>
+        {% endif %}
 
-{% if user.is_authenticated %}
-<form method="POST" enctype="multipart/form-data" class="mb-4">
-    {% csrf_token %}
-    <textarea name="content" class="form-control mb-2" rows="2" placeholder="Say something..."></textarea>
-    <input type="file" name="image" class="form-control mb-2">
-    <button type="submit" class="btn btn-dark">Post</button>
-</form>
-{% else %}
-<p><a href="{% url 'login' %}">Log in</a> to join this room and post.</p>
-{% endif %}
+        <hr>
+        <h5>Posts:</h5>
+        {% for post in posts %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        {% if post.user.profile.profile_picture %}
+                            <img src="{{ post.user.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}usr-profile.png" alt="Default Avatar" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
+                        {% endif %}
+                        <div>
+                            <strong>{{ post.user.username }}</strong>
+                            <small class="text-muted">{{ post.created_at|date:"M d, Y H:i" }}</small>
+                        </div>
+                    </div>
+                    <p>{{ post.content }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="img-fluid" style="max-width: 100%; height: auto;" />
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
 
-
-<hr>
-<h5>Posts:</h5>
-{% for post in posts %}
-    <div class="card mb-2">
-        <div class="card-body">
-            <p><strong>{{ post.user.username }}</strong> - {{ post.created_at|date:"M d, Y H:i" }}</p>
-            <p>{{ post.content }}</p>
-            {% if post.image %}
-                <img src="{{ post.image.url }}" class="img-fluid" />
-            {% endif %}
+    <!-- Right Column: Participants List -->
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                Participants ({{ participants.count }})
+            </div>
+            <div class="card-body p-0">
+                {% for participant in participants %}
+                    <div class="d-flex align-items-center p-3 border-bottom">
+                        {% if participant.profile.profile_picture %}
+                            <img src="{{ participant.profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle me-3" width="40" height="40" style="object-fit: cover;">
+                        {% else %}
+                            <img src="{{ MEDIA_URL }}usr-profile.png" alt="Default Avatar" class="rounded-circle me-3" width="40" height="40" style="object-fit: cover;">
+                        {% endif %}
+                        <a href="{% url 'profile' participant.username %}" class="text-decoration-none text-dark fw-medium">
+                            {{ participant.username }}
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="p-3 text-muted text-center">No participants yet</div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-{% empty %}
-    <p>No posts yet.</p>
-{% endfor %}
-
+</div>
 
 {% endblock %}

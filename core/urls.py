@@ -9,7 +9,10 @@ urlpatterns = [
     path('', view = views.home, name='home'),
     path('room/<str:room_name>/', view = views.room_detail, name='room_detail'),
     path('create_room/', view = views.create_room, name='create_room'),
+    path('profile/edit/', view = views.edit_profile, name = 'edit_user_profle'),  
+    path('profile/<str:username>/', view = views.profile_view, name='profile'),  
 ]
+
 
 if settings.DEBUG:
 

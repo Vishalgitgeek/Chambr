@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 # Create your models here.
 
 class Topic(models.Model):
@@ -33,3 +34,12 @@ class Post(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.content[:20]}"
+    
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/', default='usr-profile.png')
+
+    def __str__(self):
+        return self.user.username

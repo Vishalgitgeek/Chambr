@@ -1,4 +1,4 @@
-from .models import Room, Topic
+from .models import Room, Topic, Profile
 from django import forms
 
 
@@ -15,4 +15,11 @@ class RoomForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Enter room name'}),
             'description': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Enter room description'}),
         }
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'profile_picture']
+
     
