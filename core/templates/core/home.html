@@ -2,12 +2,12 @@
 {% block content %}
 
 <!-- Hero Section -->
-<div class="hero-section bg-gradient-dark text-white text-center py-5 mb-5 rounded-3">
+<div class="hero-section text-dark text-center mb-5 rounded-3">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8 mx-auto">
                 <h1 class="display-4 fw-bold mb-3">
-                    <i class="fas fa-comments me-3 text-primary"></i>
+                    <i class="fas fa-comments me-3 text-danger"></i>
                     Welcome to Chambr
                 </h1>
                 <p class="lead mb-4 opacity-90">
@@ -19,14 +19,14 @@
                         <a href="{% url 'create_room' %}" class="btn btn-primary btn-lg px-5 py-3 me-3 create-room-btn">
                             <i class="fas fa-plus-circle me-2"></i>Create New Room
                         </a>
-                        <a href="{% url 'profile' user.username %}" class="btn btn-outline-light btn-lg px-4 py-3 profile-btn">
+                        <a href="{% url 'profile' user.username %}" class="btn btn-outline-primary btn-lg px-4 py-3 profile-btn">
                             <i class="fas fa-user me-2"></i>My Profile
                         </a>
                     {% else %}
                         <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-5 py-3 me-3 login-btn">
                             <i class="fas fa-sign-in-alt me-2"></i>Login to Join
                         </a>
-                        <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg px-4 py-3 register-btn">
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg px-4 py-3 register-btn">
                             <i class="fas fa-user-plus me-2"></i>Register
                         </a>
                     {% endif %}
@@ -79,7 +79,7 @@
                 <p class="text-muted mb-0">Join conversations happening right now</p>
             </div>
             {% if user.is_authenticated %}
-                <a href="{% url 'create_room' %}" class="btn btn-dark btn-sm">
+                <a href="{% url 'create_room' %}" class="btn btn-primary btn-sm">
                     <i class="fas fa-plus me-1"></i>Create Room
                 </a>
             {% endif %}
@@ -126,7 +126,7 @@
                                 </div>
                                 
                                 <div class="d-grid">
-                                    <a href="{% url 'room_detail' room.name %}" class="btn btn-outline-dark btn-room-join">
+                                    <a href="{% url 'room_detail' room.name %}" class="btn btn-outline-primary btn-room-join">
                                         <i class="fas fa-sign-in-alt me-2"></i>Join Room
                                     </a>
                                 </div>
@@ -139,7 +139,7 @@
             <!-- Load More Button (for future pagination) -->
             {% if rooms.count > 6 %}
                 <div class="text-center mt-4">
-                    <button class="btn btn-outline-secondary btn-lg">
+                    <button class="btn btn-outline-primary btn-lg">
                         <i class="fas fa-chevron-down me-2"></i>Load More Rooms
                     </button>
                 </div>
@@ -166,228 +166,128 @@
 </div>
 
 <style>
-/* Hero Section Styling */
-.hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" fill-opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.1;
-    pointer-events: none;
-}
-
-/* Hero buttons container */
-.hero-buttons {
-    position: relative;
-    z-index: 10;
-}
-
-/* Button styling with proper z-index and pointer events */
-.create-room-btn, .login-btn {
-    background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
-    border: none !important;
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 15;
-    cursor: pointer !important;
-    pointer-events: auto !important;
-}
-
-.create-room-btn:hover, .login-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
-    background: linear-gradient(45deg, #ee5a24, #ff6b6b) !important;
-    color: white !important;
-}
-
-.profile-btn, .register-btn {
-    border: 2px solid rgba(255,255,255,0.8) !important;
-    background: transparent !important;
-    color: white !important;
-    position: relative;
-    z-index: 15;
-    cursor: pointer !important;
-    pointer-events: auto !important;
-    transition: all 0.3s ease;
-}
-
-.profile-btn:hover, .register-btn:hover {
-    background: rgba(255,255,255,0.1) !important;
-    border-color: white !important;
-    color: white !important;
-    transform: translateY(-2px);
-}
-
-/* Stats Cards */
-.stat-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-
-.stat-icon i {
-    transition: transform 0.3s ease;
-}
-
-.stat-card:hover .stat-icon i {
-    transform: scale(1.1);
-}
-
-/* Room Cards */
-.room-card {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.room-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-}
-
-.room-card .card-header {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    padding: 1rem 1.25rem;
-}
-
-.room-card .card-body {
-    padding: 1.5rem 1.25rem;
-}
-
-.topic-badge {
-    background: linear-gradient(45deg, #28a745, #20c997);
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 600;
-}
-
-.room-title a {
-    transition: color 0.3s ease;
-}
-
-.room-title a:hover {
-    color: #495057 !important;
-}
-
-.room-description {
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.btn-room-join {
-    transition: all 0.3s ease;
-    border-width: 2px;
-}
-
-.btn-room-join:hover {
-    background: #343a40;
-    color: white;
-    transform: translateY(-1px);
-}
-
-/* Section Headers */
-.section-header h2 {
-    position: relative;
-}
-
-.section-header h2::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(45deg, #dc3545, #ff6b6b);
-    border-radius: 2px;
-}
-
-/* Empty State */
-.empty-state {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 15px;
-    margin: 2rem 0;
-}
-
-.empty-icon i {
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
     .hero-section {
-        padding: 3rem 0 !important;
+        background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,231,234,0.85) 100%);
+        border: 1px solid rgba(220,53,69,0.2);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.05);
+        padding: 3rem 2rem;
     }
-    
-    .hero-section h1 {
-        font-size: 2rem !important;
+
+    .hero-buttons a {
+        min-width: 180px;
     }
-    
-    .hero-section .btn {
-        font-size: 0.9rem;
-        padding: 0.75rem 1.5rem !important;
-        margin-bottom: 0.5rem;
+
+    .profile-btn,
+    .register-btn {
+        border: 1px solid rgba(220,53,69,0.18) !important;
+        background: #fff !important;
+        color: var(--primary) !important;
     }
-    
+
+    .profile-btn:hover,
+    .register-btn:hover {
+        background: var(--primary);
+        color: #fff !important;
+    }
+
     .stat-card {
-        margin-bottom: 1rem;
+        background: #fff;
+        border: 1px solid rgba(220,53,69,0.12);
+        padding: 2rem;
+        border-radius: 1.5rem;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.07);
     }
-}
 
-/* Hover animations */
-.room-card, .stat-card {
-    position: relative;
-}
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 22px 45px rgba(0,0,0,0.09);
+    }
 
-.room-card::before, .stat-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 15px;
-    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
+    .room-card {
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+        border: 1px solid rgba(220,53,69,0.12);
+        overflow: hidden;
+    }
 
-.room-card:hover::before, .stat-card:hover::before {
-    opacity: 1;
-}
+    .room-card .card-header {
+        background: #faf5f5;
+        border-bottom: 1px solid rgba(220,53,69,0.12);
+        padding: 1rem 1.25rem;
+    }
+
+    .room-card .card-body {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .topic-badge {
+        background: rgba(220,53,69,0.12);
+        color: var(--primary);
+        padding: 0.35rem 0.9rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .room-title a:hover {
+        color: var(--primary) !important;
+    }
+
+    .btn-room-join {
+        border-radius: 12px;
+    }
+
+    .btn-room-join:hover {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+    }
+
+    .section-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 70px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+    }
+
+    .empty-state {
+        background: #fff;
+        border: 1px solid rgba(220,53,69,0.12);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+    }
+
+    .empty-icon i {
+        color: rgba(220,53,69,0.75);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 2.5rem 1.25rem;
+        }
+
+        .hero-section h1 {
+            font-size: 2.2rem;
+        }
+
+        .hero-buttons a {
+            width: 100%;
+            margin-bottom: 0.75rem;
+        }
+    }
 </style>
-
-<!-- Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 {% endblock %}

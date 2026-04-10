@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
             <div class="card shadow-lg border-0">
-                <div class="card-header bg-dark text-white text-center py-4">
+                <div class="card-header bg-white text-dark text-center py-4">
                     <h2 class="mb-0">
-                        <i class="fas fa-plus-circle me-2"></i>
+                        <i class="fas fa-plus-circle me-2 text-danger"></i>
                         Create New Room
                     </h2>
                     <p class="mb-0 mt-2 opacity-75">Start a new conversation space</p>
@@ -76,10 +76,10 @@
 
                         <!-- Action Buttons -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-5">
-                            <button type="submit" class="btn btn-dark btn-lg px-5 me-md-2">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 me-md-2">
                                 <i class="fas fa-rocket me-2"></i>Create Room
                             </button>
-                            <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-lg px-4">
+                            <a href="{% url 'home' %}" class="btn btn-outline-primary btn-lg px-4">
                                 <i class="fas fa-times me-2"></i>Cancel
                             </a>
                         </div>
@@ -136,14 +136,15 @@ textarea.form-control {
 }
 
 /* Button hover effects */
-.btn-dark:hover {
-    background-color: #000;
+.btn-primary:hover {
+    background-color: #b02a37;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(176, 42, 55, 0.35);
 }
 
-.btn-outline-secondary:hover {
+.btn-outline-primary:hover {
     transform: translateY(-1px);
+    background-color: rgba(220,53,69,0.08);
 }
 
 /* Card animation */
@@ -182,7 +183,4 @@ textarea.form-control {
     }
 }
 </style>
-
-<!-- Font Awesome for icons (if not already included) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
