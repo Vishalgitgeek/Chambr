@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: chambr
+    runtime: python312
+    buildCommand: ./build.sh
+    startCommand: gunicorn Chambr.wsgi --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: DEBUG
+        value: 0

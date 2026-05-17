@@ -1,1 +1,1 @@
-web: gunicorn chambr.wsgi
+web: gunicorn Chambr.wsgi --bind 0.0.0.0:$PORT
